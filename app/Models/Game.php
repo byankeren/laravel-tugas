@@ -12,9 +12,12 @@ class Game extends Model
         'name',
         'author_id'
     ];
-
     public function Author()
     {
         return $this->belongsTo(Author::class);
+    }
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'game_tag');
     }
 }

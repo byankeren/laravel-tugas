@@ -7,14 +7,14 @@
   @vite('resources/css/app.css')
 </head>
 
-<body class="mx-auto max-w-md">
+<body class="my-10 max-w-xl mx-auto font-extrabold">
   <div class="py-10 w-full">
     <div>
       <a href="/games" class="hover:shadow-[1px_1px] px-4 py-2 border-[3px] border-black shadow-[3px_3px] rounded-md">All Games</a>
       <a href="/authors" class="hover:shadow-[1px_1px] px-4 py-2 border-[3px] border-black shadow-[3px_3px] rounded-md">All Authors</a>
       <a href="/tags" class="hover:shadow-[1px_1px] px-4 py-2 border-[3px] border-black shadow-[3px_3px] rounded-md">All Tags</a>
     </div>
-    <form action="/authors" method="POST" class="py-6 w-full grid gap-2">
+    <form action="/tags" method="POST" class="py-6 w-full grid gap-2">
       @csrf
       <div class="w-full">
         <label for="author_name">Author Name</label>

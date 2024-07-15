@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Author;
 use App\Models\Game;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class GameController extends Controller
@@ -23,7 +24,8 @@ class GameController extends Controller
     public function create()
     {
         $authors = Author::all();
-        return view('games.create', compact('authors'));
+        $tags = Tag::all();
+        return view('games.create', compact('authors', 'tags'));
     }
 
     /**
@@ -31,12 +33,18 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
-        $name = $request->name;
-        $author = $request->author;
-        Game::create([
-            'name' => $name,
-            'author_id' => $author
+        $validated = $request->validate([
+            'name' => 'required',
+            'author_id' => 'required',
+            'tag_id' => 'required'
         ]);
+        $game = Game::create(
+            [
+                'name' => $validated['name'],
+                'author_id' => $validated['author_id'],
+            ]
+        );
+        $game->tags()->attach($validated['tag_id']);
         return redirect('/games');
     }
 
@@ -45,6 +53,9 @@ class GameController extends Controller
      */
     public function show(Game $game)
     {
+        $game = Game::where('id', '=', $game->id)->with('tags')->get();
+        $game = $game[0];
+        // return $game->tags;
         return view('games.show', compact('game'));
     }
 
@@ -54,7 +65,8 @@ class GameController extends Controller
     public function edit(Game $game)
     {
         $authors = Author::all();
-        return view('games.edit', compact('game', 'authors'));
+        $tags = Tag::all();
+        return view('games.edit', compact('game', 'authors', 'tags'));
     }
 
     /**
@@ -63,10 +75,16 @@ class GameController extends Controller
     public function update(Request $request, Game $game)
     {
         // return $request;
-        $game->update([
-            'name' => $request->name,
-            'author_id' => $request->author,
+        $validated = $request->validate([
+            'name' => 'required',
+            'author_id' => 'required',
+            'tag_id' => 'required'
         ]);
+        $game->update([
+            'name' => $validated['name'],
+            'author_id' => $validated['author_id'],
+        ]);
+        $game->tags()->sync($validated['tag_id']);
         return redirect('/games');
     }
 

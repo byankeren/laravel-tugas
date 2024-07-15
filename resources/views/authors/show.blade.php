@@ -7,11 +7,9 @@
   @vite('resources/css/app.css')
 </head>
 
-<body class="my-10 max-w-xl mx-auto font-extrabold">
-  <a href="/games/create" class="hover:shadow-[1px_1px] px-4 py-2 border-[3px] border-black shadow-[3px_3px] rounded-md">Create</a>
-  <a href="/authors/create" class="hover:shadow-[1px_1px] px-4 py-2 border-[3px] border-black shadow-[3px_3px] rounded-md">Create Authors</a>
-  <a href="/games" class="hover:shadow-[1px_1px] px-4 py-2 border-[3px] border-black shadow-[3px_3px] rounded-md">All Games</a>
-  <a href="/authors" class="hover:shadow-[1px_1px] px-4 py-2 border-[3px] border-black shadow-[3px_3px] rounded-md">All Authors</a>
+<body class="my-10 max-w-7xl mx-auto font-extrabold">
+  @include('components/link')
+
   <div class="grid gap-10 my-10">
     <div class="gap-2 grid grid-cols-2">
       <div class="flex gap-2">

@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Author;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
-class AuthorController extends Controller
+class TagController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $authors = Author::all();
-        return view('authors.authors', compact('authors'));
+        $tags = Tag::all();
+        return view('tags.tags', compact('tags'));
     }
 
     /**
@@ -21,7 +21,7 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        return view('authors.create');
+        return view('tags.create');
     }
 
     /**
@@ -32,45 +32,44 @@ class AuthorController extends Controller
         $validated = $request->validate([
             'name' => 'required'
         ]);
-        Author::create($validated);
-        return redirect('/authors');
+        Tag::create($validated);
+        return redirect('/tags');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Author $author)
+    public function show(Tag $tag)
     {
-        return view('authors.show', compact('author'));
+        return view('tags.show', compact('tag'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Author $author)
+    public function edit(Tag $tag)
     {
-        // $authors = Author::all();
-        return view('authors.edit', compact('author'));
+        return view('tags.edit', compact('tag'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Author $author)
+    public function update(Request $request, Tag $tag)
     {
         $validated = $request->validate([
             'name' => 'required'
         ]);
-        $author->update($validated);
-        return redirect('/authors');
+        $tag->update($validated);
+        return redirect('/tags');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Author $author)
+    public function destroy(Tag $tag)
     {
-        $author->delete();
-        return redirect('/authors');
+        $tag->delete();
+        return redirect('/tags');
     }
 }
